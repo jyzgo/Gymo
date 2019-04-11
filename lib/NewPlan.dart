@@ -32,7 +32,9 @@ class _NewPlanPageState extends State<NewPlanPage> {
           title: Text('New Plan'),
         ),
         body: Center(
-          child: Text('New plan'),
+          child: Column(
+            children: <Widget>[],
+          ),
         ));
   }
 }
