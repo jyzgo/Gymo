@@ -49,7 +49,18 @@ class _NewPlanPageState extends State<NewPlanPage>
         ),
         body: Center(
           child: Column(
-            children: <Widget>[GymoSet()],
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'This is gym Name',
+                style: TextStyle(fontSize: 40, color: Colors.blueAccent),
+              ),
+              Text(
+                'Sets',
+                style: TextStyle(fontSize: 35, color: Colors.lightBlueAccent),
+              ),
+              // GymoSet(Text(''))
+            ],
           ),
         ));
   }
