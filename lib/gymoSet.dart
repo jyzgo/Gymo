@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:observe/observe.dart';
+import 'GymoObserverEnum.dart';
 
 class GymoSet extends StatefulWidget {
   @override
@@ -11,10 +11,22 @@ class _GymoSetState extends State<GymoSet> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.blue,
+      alignment: AlignmentDirectional.center,
       child: Row(
         children: <Widget>[
-          FloatingActionButton(
+          FlatButton(
             child: const Icon(Icons.add),
+            onPressed: () {
+              ObserverCenter.post(
+                  GymoNotificationEnum.SetNumberChanged.index, 1);
+            },
+          ),
+          FlatButton(
+            child: const Icon(Icons.remove),
+            onPressed: () {
+              ObserverCenter.post(
+                  GymoNotificationEnum.SetNumberChanged.index, -1);
+            },
           )
         ],
       ),
