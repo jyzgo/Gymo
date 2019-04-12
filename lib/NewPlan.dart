@@ -26,18 +26,22 @@ class NewPlanPage extends StatefulWidget {
   _NewPlanPageState createState() => _NewPlanPageState();
 }
 
-class _NewPlanPageState extends State<NewPlanPage>
-    implements ObserverListenerInterface {
+class _NewPlanPageState extends State<NewPlanPage> {
+  String _planName;
+
+  int _setsNum;
+  int _worksNum;
+  int _restInterval;
+
   _NewPlanPageState() {
-    ObserverCenter.addMutipleListeners([
-      GymoNotificationEnum.SetNumberChanged.index,
-      GymoNotificationEnum.WorkIntervalChanged.index,
-      GymoNotificationEnum.RestIntervalChanged.index
-    ], this);
+    _LoadFromFile();
   }
-  @override
-  void dispose() {
-    super.dispose();
+
+  _LoadFromFile() {
+    _planName = 'New Plan1';
+    _setsNum = 20;
+    _worksNum = 12;
+    _restInterval = 30;
   }
 
   @override
@@ -45,7 +49,7 @@ class _NewPlanPageState extends State<NewPlanPage>
     print('build');
     return Scaffold(
         appBar: AppBar(
-          title: Text('New Plan'),
+          title: Text(_planName),
         ),
         body: Center(
           child: Column(
@@ -59,10 +63,15 @@ class _NewPlanPageState extends State<NewPlanPage>
                 'Sets',
                 style: TextStyle(fontSize: 35, color: Colors.lightBlueAccent),
               ),
-              // GymoSet(Text(''))
+              GymoSet(_setsNum, _onValueChanged)
             ],
           ),
         ));
+  }
+
+  void _onValueChanged(int v) {
+    _setsNum = _setsNum + v;
+    print("set num change to ${_setsNum}");
   }
 
   @override

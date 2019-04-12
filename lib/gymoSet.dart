@@ -1,39 +1,51 @@
 import 'package:flutter/material.dart';
-import 'GymoObserverEnum.dart';
 
 class GymoSet extends StatefulWidget {
-  Function _leftfunc;
-  Function _rightfunc;
-  Text _text;
-  GymoSet(this._text, this._leftfunc, this._rightfunc);
+  final Function _onValueChanged;
+  final int _timeCount;
+  GymoSet(this._timeCount, this._onValueChanged);
 
   @override
   _GymoSetState createState() =>
-      _GymoSetState(this._text, this._leftfunc, this._rightfunc);
+      _GymoSetState(this._timeCount, this._onValueChanged);
 }
 
 class _GymoSetState extends State<GymoSet> {
-  Function _leftfunc;
-  Function _rightfunc;
-  Text _text;
-  _GymoSetState(this._text, this._leftfunc, this._rightfunc);
+  Function _onValueChanged;
+  int _timeCount;
+  _GymoSetState(this._timeCount, this._onValueChanged);
   @override
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
       FlatButton(
         child: const Icon(
-          Icons.add_circle,
-          size: 50,
+          Icons.remove_circle,
+          size: 80,
         ),
-        onPressed: this._leftfunc,
+        onPressed: () {
+          _valueChanged(-1);
+        },
       ),
-      SafeArea(child: this._text),
+      SafeArea(
+          child: Text(
+        _timeCount.toString(),
+        style: TextStyle(fontSize: 40, color: Colors.blueGrey),
+      )),
       FlatButton(
           child: const Icon(
-            Icons.remove_circle,
-            size: 50,
+            Icons.add_circle,
+            size: 80,
           ),
-          onPressed: this._rightfunc)
+          onPressed: () {
+            _valueChanged(1);
+          })
     ]);
+  }
+
+  void _valueChanged(int v) {
+    setState(() {
+      _timeCount = _timeCount + v;
+      _onValueChanged(v);
+    });
   }
 }
