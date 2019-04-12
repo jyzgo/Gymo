@@ -48,6 +48,7 @@ class _NewPlanPageState extends State<NewPlanPage> {
   Widget build(BuildContext context) {
     print('build');
     return Scaffold(
+        backgroundColor: Colors.grey,
         appBar: AppBar(
           title: Text(_planName),
         ),
@@ -59,19 +60,42 @@ class _NewPlanPageState extends State<NewPlanPage> {
                 'This is gym Name',
                 style: TextStyle(fontSize: 40, color: Colors.blueAccent),
               ),
-              Text(
-                'Sets',
-                style: TextStyle(fontSize: 35, color: Colors.lightBlueAccent),
-              ),
-              GymoSet(_setsNum, _onValueChanged)
+              _gymTitleText('Sets'),
+              GymoSet(_setsNum, _onSetValueChanged),
+              _gymTitleText('Works Number'),
+              GymoSet(_worksNum, _onWorksValueChanged),
+              _gymTitleText('Rest Interval'),
+              GymoSet(_restInterval, _onRestIntervalChanged),
+              RaisedButton(
+                child: Text('Save',
+                    style: TextStyle(fontSize: 30, color: Colors.blueAccent)),
+                onPressed: () {
+                  Navigator.pop(context);
+                  print('save pressed');
+                },
+              )
             ],
           ),
         ));
   }
 
-  void _onValueChanged(int v) {
+  Text _gymTitleText(String title) {
+    return Text(
+      title,
+      style: TextStyle(fontSize: 35, color: Colors.lightBlueAccent),
+    );
+  }
+
+  void _onSetValueChanged(int v) {
     _setsNum = _setsNum + v;
-    print("set num change to ${_setsNum}");
+  }
+
+  void _onWorksValueChanged(int v) {
+    _worksNum = _worksNum + v;
+  }
+
+  void _onRestIntervalChanged(int v) {
+    _restInterval = _restInterval + v;
   }
 
   @override
