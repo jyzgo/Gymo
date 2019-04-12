@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'gymoSet.dart';
-import 'GymoObserverEnum.dart';
+import './utils/FileManager.dart';
 
 class NewPlanRoute extends CupertinoPageRoute<NewPlanRoute> {
   NewPlanRoute() : super(builder: (BuildContext context) => new NewPlanPage());
@@ -34,10 +34,13 @@ class _NewPlanPageState extends State<NewPlanPage> {
   int _restInterval;
 
   _NewPlanPageState() {
-    _LoadFromFile();
+    _loadFromFile();
   }
 
-  _LoadFromFile() {
+  _loadFromFile() {
+    FileManager().readCounter().then((int value) {
+      print('value I read is $value');
+    });
     _planName = 'New Plan1';
     _setsNum = 20;
     _worksNum = 12;
@@ -70,7 +73,12 @@ class _NewPlanPageState extends State<NewPlanPage> {
                 child: Text('Save',
                     style: TextStyle(fontSize: 30, color: Colors.blueAccent)),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pop(context, {
+                    'title': _planName,
+                    'setsNum': _setsNum,
+                    'worksNum': _worksNum,
+                    "restInterval": _restInterval
+                  });
                   print('save pressed');
                 },
               )
@@ -96,21 +104,5 @@ class _NewPlanPageState extends State<NewPlanPage> {
 
   void _onRestIntervalChanged(int v) {
     _restInterval = _restInterval + v;
-  }
-
-  @override
-  notified(dynamic obj, int key) {
-    int value = obj;
-    var gmykey = GymoNotificationEnum.values[key];
-    print("$gmykey value changed $value");
-    switch (gmykey) {
-      case GymoNotificationEnum.SetNumberChanged:
-        {}
-        break;
-      case GymoNotificationEnum.WorkIntervalChanged:
-        break;
-      case GymoNotificationEnum.RestIntervalChanged:
-        break;
-    }
   }
 }

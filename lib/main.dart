@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import './NewPlan.dart';
+import './utils/FileManager.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,12 +29,36 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  static const String JSON_FILE = 'gymo.json';
+  static const String ARRAY_KEY = 'arrays';
+  static const String TITLE_KEY = 'title';
+  List<Map<String, dynamic>> _plans;
+  _MyHomePageState() {
+    _loadFile();
+  }
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  _loadFile() async {
+    var file = File(JSON_FILE);
+    if (await file.exists()) {
+      FileManager().readJson(JSON_FILE).then((mainMap) => {
+            setState(() {
+              print('read done');
+              if (mainMap[ARRAY_KEY] == null) {
+                mainMap[ARRAY_KEY] = List<Map<String, dynamic>>();
+              }
+              _plans = mainMap[ARRAY_KEY];
+            })
+          });
+    } else {
+      _plans = List<Map<String, dynamic>>();
+    }
+  }
+
+  List<Widget> _cellList() {
+    if (_plans == null) {
+      return <Widget>[];
+    }
+    return _plans.map((plan) => ListTile(title: plan[TITLE_KEY])).toList();
   }
 
   @override
@@ -49,22 +76,20 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
+          child: _plans != null && _plans.length != 0
+              ? ListView(
+                  children: _cellList(),
+                )
+              : Text('Add A New Plan',
+                  style: TextStyle(fontSize: 40, color: Colors.black))),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(new NewPlanRoute());
+          Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NewPlanPage()))
+              .then((v) => {print('return is $v')});
+
+          // NewPlanRoute())
+          //     .then((value) => {print('value is $value')});
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
