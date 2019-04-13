@@ -47,7 +47,8 @@ class _NewPlanPageState extends State<NewPlanPage> {
     _restInterval = 30;
   }
 
-  TextEditingController _planNameController = TextEditingController();
+  TextEditingController _planNameController =
+      TextEditingController(text: 'New Plan');
   @override
   Widget build(BuildContext context) {
     return Scaffold(

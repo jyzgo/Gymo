@@ -55,10 +55,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> _cellList() {
-    if (_plans == null) {
-      return <Widget>[];
+    if (_plans != null) {
+      return _plans
+          .map((plan) => ListTile(title: Text(plan[TITLE_KEY])))
+          .toList();
     }
-    return _plans.map((plan) => ListTile(title: plan[TITLE_KEY])).toList();
+    return null;
   }
 
   @override
@@ -86,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           Navigator.push(context,
                   MaterialPageRoute(builder: (context) => NewPlanPage()))
-              .then((v) => {print('return is $v')});
+              .then((v) => {_dealWithReturnValue(v)});
 
           // NewPlanRoute())
           //     .then((value) => {print('value is $value')});
@@ -95,5 +97,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  void _dealWithReturnValue(v) {
+    if (v != null) {
+      setState(() {
+        _plans.add(v);
+      });
+    }
   }
 }
