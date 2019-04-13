@@ -47,21 +47,23 @@ class _NewPlanPageState extends State<NewPlanPage> {
     _restInterval = 30;
   }
 
+  TextEditingController _planNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    print('build');
     return Scaffold(
         backgroundColor: Colors.grey,
         appBar: AppBar(
           title: Text(_planName),
+          centerTitle: true,
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                'This is gym Name',
-                style: TextStyle(fontSize: 40, color: Colors.blueAccent),
+              TextField(
+                textAlign: TextAlign.center,
+                controller: _planNameController,
+                style: TextStyle(fontSize: 30, color: Colors.blueAccent),
               ),
               _gymTitleText('Sets'),
               GymoSet(_setsNum, _onSetValueChanged),
@@ -74,7 +76,7 @@ class _NewPlanPageState extends State<NewPlanPage> {
                     style: TextStyle(fontSize: 30, color: Colors.blueAccent)),
                 onPressed: () {
                   Navigator.pop(context, {
-                    'title': _planName,
+                    'title': _planNameController.text,
                     'setsNum': _setsNum,
                     'worksNum': _worksNum,
                     "restInterval": _restInterval
