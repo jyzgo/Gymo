@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import './NewPlan.dart';
+import './UI/NewPlan.dart';
 import './utils/FileManager.dart';
 
 void main() => runApp(MyApp());
@@ -11,11 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Gymo',
+      title: 'GymoNew',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.lightBlue,
       ),
-      home: MyHomePage(title: 'Gymo'),
+      home: MyHomePage(title: 'GymoHome'),
     );
   }
 }
@@ -42,7 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
     if (await file.exists()) {
       FileManager().readJson(JSON_FILE).then((mainMap) => {
             setState(() {
-              print('read done');
               if (mainMap[ARRAY_KEY] == null) {
                 mainMap[ARRAY_KEY] = List<Map<String, dynamic>>();
               }

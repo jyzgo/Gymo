@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'gymoSet.dart';
-import './utils/FileManager.dart';
+import '../gymoSet.dart';
+import '../utils/FileManager.dart';
 
 class NewPlanRoute extends CupertinoPageRoute<NewPlanRoute> {
   NewPlanRoute() : super(builder: (BuildContext context) => new NewPlanPage());
@@ -28,10 +28,18 @@ class NewPlanPage extends StatefulWidget {
 
 class _NewPlanPageState extends State<NewPlanPage> {
   String _planName;
+  FocusNode _titleFocusNode;
 
   int _setsNum;
   int _worksNum;
   int _restInterval;
+  
+  @override
+  void initState() {
+    super.initState();
+
+    _titleFocusNode = FocusNode();
+  }
 
   _NewPlanPageState() {
     _loadFromFile();
@@ -41,7 +49,7 @@ class _NewPlanPageState extends State<NewPlanPage> {
     FileManager().readCounter().then((int value) {
       print('value I read is $value');
     });
-    _planName = 'New Plan1';
+    _planName = 'New PlandddR';
     _setsNum = 20;
     _worksNum = 12;
     _restInterval = 30;
@@ -54,18 +62,20 @@ class _NewPlanPageState extends State<NewPlanPage> {
     return Scaffold(
         backgroundColor: Colors.grey,
         appBar: AppBar(
-          title: Text(_planName),
+          title: titleEditable(), // Text(_planName ),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.edit),onPressed: (){
+              print("Edit be pressed");
+              FocusScope.of(context).requestFocus(_titleFocusNode);
+            },)
+          ],
           centerTitle: true,
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              TextField(
-                textAlign: TextAlign.center,
-                controller: _planNameController,
-                style: TextStyle(fontSize: 30, color: Colors.blueAccent),
-              ),
+              
               _gymTitleText('Sets'),
               GymoSet(_setsNum, _onSetValueChanged),
               _gymTitleText('Works Number'),
@@ -90,6 +100,66 @@ class _NewPlanPageState extends State<NewPlanPage> {
         ));
   }
 
+  Future<void> _titleShouldntEmpty() async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Warning'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text('Plan name shouldn\'t be empty,'),
+              Text('please input a valid name'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('OK'),
+            
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+  TextField titleEditable()
+  {
+    final controller = TextEditingController();
+    
+    var editableTitle = TextField(
+      focusNode: _titleFocusNode,
+      style: TextStyle(fontSize: 30),
+      cursorColor: Colors.black,
+      textAlign: TextAlign.center,
+      controller:  controller,
+      onSubmitted: (String done){
+        if(done.length == 0)
+        {
+          _titleShouldntEmpty();
+        }else{
+          _planName = done;
+          controller.text = _planName;
+        }
+
+      },
+      decoration: InputDecoration(
+      
+      border: InputBorder.none,
+      hintText: 'Please enter a plan name'
+    ),
+      );
+     controller.text = _planName;
+
+     return editableTitle;
+  }
+
   Text _gymTitleText(String title) {
     return Text(
       title,
@@ -108,4 +178,11 @@ class _NewPlanPageState extends State<NewPlanPage> {
   void _onRestIntervalChanged(int v) {
     _restInterval = _restInterval + v;
   }
+
+  void dispose()
+  {
+    _titleFocusNode .dispose();
+    super.dispose();
+  }
+
 }
