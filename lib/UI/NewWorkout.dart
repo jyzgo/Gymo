@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../gymoSet.dart';
+import './gymoSet.dart';
 import '../utils/FileManager.dart';
 import '../Model/GymoWorkoutModel.dart';
 
 class NewWorkoutRoute extends CupertinoPageRoute<NewWorkoutRoute> {
-  NewWorkoutRoute() : super(builder: (BuildContext context) => new NewWorkoutPage());
+  NewWorkoutRoute() : super(builder: (BuildContext context) => new NewWorkoutPage(true));
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
@@ -15,24 +15,26 @@ class NewWorkoutRoute extends CupertinoPageRoute<NewWorkoutRoute> {
           begin: Offset.zero,
           end: const Offset(-1.0, 0.0),
         ).animate(secondaryAnimation),
-        child: NewWorkoutPage());
+        child: NewWorkoutPage(true));
   }
 }
 
 class NewWorkoutPage extends StatefulWidget {
   final Widget child;
+  final bool isCreate;
 
-  NewWorkoutPage({Key key, this.child}) : super(key: key);
+  NewWorkoutPage(this.isCreate,{Key key, this.child}) : super(key: key);
 
-  _NewWorkoutPageState createState() => _NewWorkoutPageState();
+  _NewWorkoutPageState createState() => _NewWorkoutPageState(this.isCreate);
 }
 
 class _NewWorkoutPageState extends State<NewWorkoutPage> {
-  String _planName;
   FocusNode _titleFocusNode;
 
+  final bool _isCreate;
+  String _workoutName;
   int _setsNum;
-  int _worksNum;
+  int _repeatTime;
   int _restInterval;
 
   GymoWorkoutModel _gymoWorkoutModel;
@@ -41,27 +43,42 @@ class _NewWorkoutPageState extends State<NewWorkoutPage> {
   void initState() {
     super.initState();
 
-    _gymoWorkoutModel = GymoWorkoutModel();
+    _gymoWorkoutModel = GymoWorkoutModel("uid",GymoWorkoutType.backWorkout,3);
   
     _titleFocusNode = FocusNode();
+    if(!_isCreate){
+      _loadFromFile();
+    }else{
+      _updateState(); 
+    }
   }
 
-  _NewWorkoutPageState() {
-    _loadFromFile();
+  _NewWorkoutPageState(this._isCreate);
+
+  _updateState()
+  {
+      setState(() {
+        _workoutName = _gymoWorkoutModel.workoutType.toString();
+        _setsNum = _gymoWorkoutModel.sets;
+        _repeatTime = _gymoWorkoutModel.repeatTime;
+        _restInterval = _gymoWorkoutModel.restTime;
+        
+        
+      });
+
   }
 
   _loadFromFile() {
     FileManager().readCounter().then((int value) {
+      _updateState();
       print('value I read is $value');
     });
-    _planName = 'New PlandddR';
-    _setsNum = 20;
-    _worksNum = 12;
-    _restInterval = 30;
+
   }
 
   TextEditingController _planNameController =
       TextEditingController(text: 'New Plan');
+  Scaffold myScald;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,10 +98,11 @@ class _NewWorkoutPageState extends State<NewWorkoutPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               
+              workoutRaiseButton(),
               _gymTitleText('Sets'),
               GymoSet(_setsNum, _onSetValueChanged),
               _gymTitleText('Works Number'),
-              GymoSet(_worksNum, _onWorksValueChanged),
+              GymoSet(_repeatTime, _onWorksValueChanged),
               _gymTitleText('Rest Interval'),
               GymoSet(_restInterval, _onRestIntervalChanged),
               RaisedButton(
@@ -94,7 +112,7 @@ class _NewWorkoutPageState extends State<NewWorkoutPage> {
                   Navigator.pop(context, {
                     'title': _planNameController.text,
                     'setsNum': _setsNum,
-                    'worksNum': _worksNum,
+                    'worksNum': _repeatTime,
                     "restInterval": _restInterval
                   });
                   print('save pressed');
@@ -149,8 +167,8 @@ class _NewWorkoutPageState extends State<NewWorkoutPage> {
         {
           _titleShouldntEmpty();
         }else{
-          _planName = done;
-          controller.text = _planName;
+          _workoutName= done;
+          controller.text = _workoutName;
         }
 
       },
@@ -160,7 +178,7 @@ class _NewWorkoutPageState extends State<NewWorkoutPage> {
       hintText: 'Please enter a plan name'
     ),
       );
-     controller.text = _planName;
+     controller.text = _workoutName;
 
      return editableTitle;
   }
@@ -177,7 +195,7 @@ class _NewWorkoutPageState extends State<NewWorkoutPage> {
   }
 
   void _onWorksValueChanged(int v) {
-    _worksNum = _worksNum + v;
+    _repeatTime = _repeatTime + v;
   }
 
   void _onRestIntervalChanged(int v) {
@@ -189,5 +207,21 @@ class _NewWorkoutPageState extends State<NewWorkoutPage> {
     _titleFocusNode .dispose();
     super.dispose();
   }
+  RaisedButton _workoutRaiseBtn;
+  RaisedButton workoutRaiseButton()
+  {
+    if(_workoutRaiseBtn == null){
+    _workoutRaiseBtn = RaisedButton(color: Colors.lightBlue,onPressed: (){
 
+      print("workbtn pressed");
+          Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NewWorkoutPage(true)))
+              .then((v) => {SelectDown(v)});
+    },);
+    }
+  return _workoutRaiseBtn;
+  }
+  void SelectDown(dynamic v){
+    print("Selcet Back");
+  }
 }

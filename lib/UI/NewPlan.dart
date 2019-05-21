@@ -167,7 +167,7 @@ class _NewPlanPageState extends State<NewPlanPage> {
     return FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NewWorkoutPage()))
+                  MaterialPageRoute(builder: (context) => NewWorkoutPage(true)))
               .then((v) => {_dealWithReturnValue(v)});
 
 
