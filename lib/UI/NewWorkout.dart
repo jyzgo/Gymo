@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../gymoSet.dart';
 import '../utils/FileManager.dart';
-import './NewWorkout.dart';
+import '../Model/GymoWorkoutModel.dart';
 
-class NewPlanRoute extends CupertinoPageRoute<NewPlanRoute> {
-  NewPlanRoute() : super(builder: (BuildContext context) => new NewPlanPage());
+class NewWorkoutRoute extends CupertinoPageRoute<NewWorkoutRoute> {
+  NewWorkoutRoute() : super(builder: (BuildContext context) => new NewWorkoutPage());
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
@@ -15,34 +15,38 @@ class NewPlanRoute extends CupertinoPageRoute<NewPlanRoute> {
           begin: Offset.zero,
           end: const Offset(-1.0, 0.0),
         ).animate(secondaryAnimation),
-        child: NewPlanPage());
+        child: NewWorkoutPage());
   }
 }
 
-class NewPlanPage extends StatefulWidget {
+class NewWorkoutPage extends StatefulWidget {
   final Widget child;
 
-  NewPlanPage({Key key, this.child}) : super(key: key);
+  NewWorkoutPage({Key key, this.child}) : super(key: key);
 
-  _NewPlanPageState createState() => _NewPlanPageState();
+  _NewWorkoutPageState createState() => _NewWorkoutPageState();
 }
 
-class _NewPlanPageState extends State<NewPlanPage> {
+class _NewWorkoutPageState extends State<NewWorkoutPage> {
   String _planName;
   FocusNode _titleFocusNode;
 
   int _setsNum;
   int _worksNum;
   int _restInterval;
+
+  GymoWorkoutModel _gymoWorkoutModel;
   
   @override
   void initState() {
     super.initState();
 
+    _gymoWorkoutModel = GymoWorkoutModel();
+  
     _titleFocusNode = FocusNode();
   }
 
-  _NewPlanPageState() {
+  _NewWorkoutPageState() {
     _loadFromFile();
   }
 
@@ -62,7 +66,6 @@ class _NewPlanPageState extends State<NewPlanPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey,
-        floatingActionButton: createFloatingActionButton(),
         appBar: AppBar(
           title: titleEditable(), // Text(_planName ),
           actions: <Widget>[
@@ -161,32 +164,6 @@ class _NewPlanPageState extends State<NewPlanPage> {
 
      return editableTitle;
   }
-
-  FloatingActionButton createFloatingActionButton()
-  {
-    return FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NewWorkoutPage()))
-              .then((v) => {_dealWithReturnValue(v)});
-
-
-    },
-    tooltip: 'Add new workout',
-    child: Icon(Icons.add_circle),
-    );
-  }
-
-  List<Widget> _cellList() {
-    return null;
-  }
-  void _dealWithReturnValue(v) {
-    if (v != null) {
-      setState(() {
-      });
-    }
-  }
-
 
   Text _gymTitleText(String title) {
     return Text(
