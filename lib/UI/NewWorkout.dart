@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './gymoSet.dart';
 import '../utils/FileManager.dart';
 import '../Model/GymoWorkoutModel.dart';
+import './WorkoutSelection.dart';
 
 class NewWorkoutRoute extends CupertinoPageRoute<NewWorkoutRoute> {
   NewWorkoutRoute() : super(builder: (BuildContext context) => new NewWorkoutPage(true));
@@ -212,10 +213,8 @@ class _NewWorkoutPageState extends State<NewWorkoutPage> {
   {
     if(_workoutRaiseBtn == null){
     _workoutRaiseBtn = RaisedButton(color: Colors.lightBlue,onPressed: (){
-
-      print("workbtn pressed");
           Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NewWorkoutPage(true)))
+                  MaterialPageRoute(builder: (context) =>WorkoutSelection()))
               .then((v) => {SelectDown(v)});
     },);
     }

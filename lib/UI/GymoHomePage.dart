@@ -66,7 +66,7 @@ class _GymoHomePageState extends State<GymoHomePage> {
                   children: _cellList(),
                 )
               : Text('Add A New Plan',
-                  style: TextStyle(fontSize: 40, color: Colors.black))),
+                  style: TextStyle(fontSize: 40,))),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,

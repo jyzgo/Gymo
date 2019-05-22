@@ -9,9 +9,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'GymoNew',
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-      ),
+      theme: 
+        ThemeData(primaryColor: Color.fromRGBO(58, 66, 86, 1.0)),
       home: GymoHomePage(title: 'GymoHome'),
     );
   }

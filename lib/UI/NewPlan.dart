@@ -137,8 +137,11 @@ class _NewPlanPageState extends State<NewPlanPage> {
     
     var editableTitle = TextField(
       focusNode: _titleFocusNode,
-      style: TextStyle(fontSize: 30),
-      cursorColor: Colors.black,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 30),
+      cursorColor: Colors.white,
+      
       textAlign: TextAlign.center,
       controller:  controller,
       onSubmitted: (String done){
