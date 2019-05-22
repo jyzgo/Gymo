@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gymo/Model/WorkoutDetailModel.dart';
+import './WorkoutDetailPage.dart';
 
 
 class WorkoutSelection extends StatefulWidget {
@@ -42,6 +44,11 @@ class _WorkoutSelectionState extends State<WorkoutSelection> {
   void onInfoButtonPressed(int index)
   {
     print("info button pressed " + index.toString());
+    WorkoutDetailModel model = WorkoutDetailModel(
+                            title: "Chest",
+                            level: "Senior", 
+                            content: testContent, indicatorValue: 10.33, price: 4,);
+    Navigator.push(context,MaterialPageRoute(builder: (context) => WorkoutDetailPage(detailModel: model,)));
 
   }
 
@@ -72,11 +79,20 @@ class _WorkoutSelectionState extends State<WorkoutSelection> {
             Text(" Intermediate", style: TextStyle(color: Colors.white))
           ],
         ),
-        onTap: (){
-          print("Tile be pressed " + index.toString());
-        },
         trailing:
-            Icon(Icons.add_circle, color: Colors.white, size: 30.0));
+        IconButton(
+          onPressed:(){
+          addWorkout(index);
+          } ,
+          icon: 
+            Icon(Icons.add_circle, color: Colors.white, size: 30.0)));
 
   }
+  final String testContent="Flutter is Google’s new open-source toolkit for helping developers build iOS and Android apps with just one codebase. It uses Dart language as a common source code for both platforms. Initially, I struggled to understand the convention since every view will be considered as a Widget. Each widget will have its own state.";
+  void addWorkout(index)
+  {
+      Navigator.pop(context,index);
+
+  }
+
 }
