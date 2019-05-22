@@ -4,7 +4,6 @@ import 'package:gymo/Model/WorkoutDetailModel.dart';
 import './gymoSet.dart';
 import '../utils/FileManager.dart';
 import './NewWorkout.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class NewPlanRoute extends CupertinoPageRoute<NewPlanRoute> {
   NewPlanRoute() : super(builder: (BuildContext context) => new NewPlanPage());
