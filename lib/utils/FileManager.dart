@@ -43,6 +43,10 @@ class FileManager {
     return File('$path/$filename');
   }
 
+  Future<File> getAssetsFile(String fullPath) async {
+    return File(fullPath);
+  }
+
   Future<Map<String, dynamic>> readJson(String jsonFile) async {
     try {
       final file = await getLocalFile(jsonFile);

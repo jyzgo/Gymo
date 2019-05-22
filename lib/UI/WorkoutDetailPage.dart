@@ -21,7 +21,7 @@ class WorkoutDetailPage extends StatelessWidget {
           border: new Border.all(color: Colors.white),
           borderRadius: BorderRadius.circular(5.0)),
       child: new Text(
-        detailModel.price.toString() + " ★",
+        detailModel.stars.toString() + " ★",
         style: TextStyle(color: Colors.white),
       ),
     );

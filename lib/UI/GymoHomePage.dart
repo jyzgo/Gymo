@@ -1,8 +1,10 @@
-
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:gymo/Model/GymoDataMgr.dart';
 import './NewPlan.dart';
 import '../utils/FileManager.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class GymoHomePage extends StatefulWidget {
   GymoHomePage({Key key, this.title}) : super(key: key);
@@ -15,29 +17,33 @@ class GymoHomePage extends StatefulWidget {
 class _GymoHomePageState extends State<GymoHomePage> {
   static const String JSON_FILE = 'gymo.json';
   static const String ARRAY_KEY = 'arrays';
-  static const String TITLE_KEY = 'title';
-  List<Map<String, dynamic>> _plans;
+  static const String TITLE_KEY = 'planName';
+  static const String FAKE_DATA = 'assets/FakeData.json';
   _GymoHomePageState() {
     _loadFile();
   }
 
   _loadFile() async {
-    var file = File(JSON_FILE);
-    if (await file.exists()) {
-      FileManager().readJson(JSON_FILE).then((mainMap) => {
-            setState(() {
-              if (mainMap[ARRAY_KEY] == null) {
-                mainMap[ARRAY_KEY] = List<Map<String, dynamic>>();
-              }
-              _plans = mainMap[ARRAY_KEY];
-            })
-          });
-    } else {
-      _plans = List<Map<String, dynamic>>();
-    }
+    String contents = await rootBundle.loadString('assets/FakeData.json');
+    GymoDataMgr().readJson(contents);
+    setState(() {});
+    // var file = File(JSON_FILE);
+    // if (await file.exists()) {
+    //   FileManager().readJson(JSON_FILE).then((mainMap) => {
+    //         setState(() {
+    //           if (mainMap[ARRAY_KEY] == null) {
+    //             mainMap[ARRAY_KEY] = List<Map<String, dynamic>>();
+    //           }
+    //           _plans = mainMap[ARRAY_KEY];
+    //         })
+    //       });
+    // } else {
+    //   _plans = List<Map<String, dynamic>>();
+    // }
   }
 
   List<Widget> _cellList() {
+    var _plans = GymoDataMgr().plans;
     if (_plans != null) {
       return _plans
           .map((plan) => ListTile(title: Text(plan[TITLE_KEY])))
@@ -48,6 +54,7 @@ class _GymoHomePageState extends State<GymoHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var _plans = GymoDataMgr().plans;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -66,7 +73,9 @@ class _GymoHomePageState extends State<GymoHomePage> {
                   children: _cellList(),
                 )
               : Text('Add A New Plan',
-                  style: TextStyle(fontSize: 40,))),
+                  style: TextStyle(
+                    fontSize: 40,
+                  ))),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
@@ -84,9 +93,7 @@ class _GymoHomePageState extends State<GymoHomePage> {
 
   void _dealWithReturnValue(v) {
     if (v != null) {
-      setState(() {
-        _plans.add(v);
-      });
+      setState(() {});
     }
   }
 }

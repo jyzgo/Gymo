@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gymo/Model/WorkoutDetailModel.dart';
 import './gymoSet.dart';
 import '../utils/FileManager.dart';
 import './NewWorkout.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class NewPlanRoute extends CupertinoPageRoute<NewPlanRoute> {
   NewPlanRoute() : super(builder: (BuildContext context) => new NewPlanPage());
@@ -34,7 +36,7 @@ class _NewPlanPageState extends State<NewPlanPage> {
   int _setsNum;
   int _worksNum;
   int _restInterval;
-  
+
   @override
   void initState() {
     super.initState();
@@ -66,137 +68,92 @@ class _NewPlanPageState extends State<NewPlanPage> {
         appBar: AppBar(
           title: titleEditable(), // Text(_planName ),
           actions: <Widget>[
-            IconButton(icon: Icon(Icons.edit),onPressed: (){
-              print("Edit be pressed");
-              FocusScope.of(context).requestFocus(_titleFocusNode);
-            },)
+            IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                print("Edit be pressed");
+                FocusScope.of(context).requestFocus(_titleFocusNode);
+              },
+            )
           ],
           centerTitle: true,
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              
-              _gymTitleText('Sets'),
-              GymoSet(_setsNum, _onSetValueChanged),
-              _gymTitleText('Works Number'),
-              GymoSet(_worksNum, _onWorksValueChanged),
-              _gymTitleText('Rest Interval'),
-              GymoSet(_restInterval, _onRestIntervalChanged),
-              RaisedButton(
-                child: Text('Save',
-                    style: TextStyle(fontSize: 30, color: Colors.blueAccent)),
-                onPressed: () {
-                  Navigator.pop(context, {
-                    'title': _planNameController.text,
-                    'setsNum': _setsNum,
-                    'worksNum': _worksNum,
-                    "restInterval": _restInterval
-                  });
-                  print('save pressed');
-                },
-              )
-            ],
-          ),
-        ));
+        body: Center(child: Text("Plan List")));
   }
 
   Future<void> _titleShouldntEmpty() async {
-  return showDialog<void>(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Warning'),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Text('Plan name shouldn\'t be empty,'),
-              Text('please input a valid name'),
-            ],
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Warning'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Plan name shouldn\'t be empty,'),
+                Text('please input a valid name'),
+              ],
+            ),
           ),
-        ),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('OK'),
-            
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
+          actions: <Widget>[
+            FlatButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-  TextField titleEditable()
-  {
+  TextField titleEditable() {
     final controller = TextEditingController();
-    
+
     var editableTitle = TextField(
       focusNode: _titleFocusNode,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 30),
+      style: TextStyle(color: Colors.white, fontSize: 30),
       cursorColor: Colors.white,
-      
       textAlign: TextAlign.center,
-      controller:  controller,
-      onSubmitted: (String done){
-        if(done.length == 0)
-        {
+      controller: controller,
+      onSubmitted: (String done) {
+        if (done.length == 0) {
           _titleShouldntEmpty();
-        }else{
+        } else {
           _planName = done;
           controller.text = _planName;
         }
-
       },
       decoration: InputDecoration(
-      
-      border: InputBorder.none,
-      hintText: 'Please enter a plan name'
-    ),
-      );
-     controller.text = _planName;
+          border: InputBorder.none, hintText: 'Please enter a plan name'),
+    );
+    controller.text = _planName;
 
-     return editableTitle;
+    return editableTitle;
   }
 
-  FloatingActionButton createFloatingActionButton()
-  {
+  FloatingActionButton createFloatingActionButton() {
     return FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NewWorkoutPage(true)))
-              .then((v) => {_dealWithReturnValue(v)});
-
-
-    },
-    tooltip: 'Add new workout',
-    child: Icon(Icons.add_circle),
+      onPressed: () {
+        Navigator.push(context,
+                MaterialPageRoute(builder: (context) => NewWorkoutPage(true)))
+            .then((v) => {_dealWithReturnValue(v)});
+      },
+      tooltip: 'Add new workout',
+      child: Icon(Icons.add_circle),
     );
   }
 
   List<Widget> _cellList() {
-    
     return null;
   }
+
   void _dealWithReturnValue(v) {
     if (v != null) {
-      setState(() {
-      });
+      setState(() {});
     }
-  }
-
-
-  Text _gymTitleText(String title) {
-    return Text(
-      title,
-      style: TextStyle(fontSize: 35, color: Colors.lightBlueAccent),
-    );
   }
 
   void _onSetValueChanged(int v) {
@@ -211,10 +168,29 @@ class _NewPlanPageState extends State<NewPlanPage> {
     _restInterval = _restInterval + v;
   }
 
-  void dispose()
-  {
-    _titleFocusNode .dispose();
+  void dispose() {
+    _titleFocusNode.dispose();
     super.dispose();
   }
 
+  Card makeCard(WorkoutDetailModel model) => Card(
+        elevation: 8.0,
+        margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+        child: Container(
+            decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+            child: Container() //makeListTile(model),
+            ),
+      );
+
+  Container makeBody() => Container(
+        // decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, 1.0)),
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: totalWorkouts.length,
+          itemBuilder: (BuildContext context, int index) {
+            return makeCard(totalWorkouts[index]);
+          },
+        ),
+      );
 }

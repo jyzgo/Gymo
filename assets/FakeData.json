@@ -1,0 +1,270 @@
+[
+    {
+        "planName": "Montoya",
+        "uid": "5ce4d8d2f81c7406735b5cea",
+        "workouts": [
+            {
+                "workoutType": 4,
+                "sets": 8,
+                "repeatTime": 2,
+                "workoutInterval": 3.0,
+                "restTime": 10
+            },
+            {
+                "workoutType": 1,
+                "sets": 8,
+                "repeatTime": 5,
+                "workoutInterval": 3.0,
+                "restTime": 20
+            },
+            {
+                "workoutType": 2,
+                "sets": 12,
+                "repeatTime": 1,
+                "workoutInterval": 2.0,
+                "restTime": 30
+            },
+            {
+                "workoutType": 4,
+                "sets": 10,
+                "repeatTime": 1,
+                "workoutInterval": 1.0,
+                "restTime": 20
+            },
+            {
+                "workoutType": 3,
+                "sets": 12,
+                "repeatTime": 2,
+                "workoutInterval": 2.0,
+                "restTime": 30
+            },
+            {
+                "workoutType": 3,
+                "sets": 10,
+                "repeatTime": 2,
+                "workoutInterval": 2.0,
+                "restTime": 10
+            },
+            {
+                "workoutType": 1,
+                "sets": 10,
+                "repeatTime": 6,
+                "workoutInterval": 1.0,
+                "restTime": 40
+            }
+        ]
+    },
+    {
+        "planName": "Madden",
+        "uid": "5ce4d8d23c54fc96f42602ab",
+        "workouts": [
+            {
+                "workoutType": 2,
+                "sets": 10,
+                "repeatTime": 6,
+                "workoutInterval": 1.0,
+                "restTime": 20
+            },
+            {
+                "workoutType": 1,
+                "sets": 8,
+                "repeatTime": 6,
+                "workoutInterval": 4.0,
+                "restTime": 20
+            },
+            {
+                "workoutType": 2,
+                "sets": 10,
+                "repeatTime": 5,
+                "workoutInterval": 5.0,
+                "restTime": 20
+            },
+            {
+                "workoutType": 3,
+                "sets": 10,
+                "repeatTime": 6,
+                "workoutInterval": 5.0,
+                "restTime": 40
+            },
+            {
+                "workoutType": 3,
+                "sets": 12,
+                "repeatTime": 6,
+                "workoutInterval": 2.0,
+                "restTime": 20
+            },
+            {
+                "workoutType": 1,
+                "sets": 10,
+                "repeatTime": 6,
+                "workoutInterval": 4.0,
+                "restTime": 20
+            },
+            {
+                "workoutType": 2,
+                "sets": 12,
+                "repeatTime": 6,
+                "workoutInterval": 6.0,
+                "restTime": 40
+            }
+        ]
+    },
+    {
+        "planName": "Higgins",
+        "uid": "5ce4d8d24ba1c6147a8eb24a",
+        "workouts": [
+            {
+                "workoutType": 1,
+                "sets": 10,
+                "repeatTime": 5,
+                "workoutInterval": 5.0,
+                "restTime": 40
+            },
+            {
+                "workoutType": 2,
+                "sets": 8,
+                "repeatTime": 1,
+                "workoutInterval": 3.0,
+                "restTime": 30
+            },
+            {
+                "workoutType": 4,
+                "sets": 8,
+                "repeatTime": 6,
+                "workoutInterval": 1.0,
+                "restTime": 30
+            },
+            {
+                "workoutType": 4,
+                "sets": 12,
+                "repeatTime": 5,
+                "workoutInterval": 3.0,
+                "restTime": 30
+            },
+            {
+                "workoutType": 3,
+                "sets": 10,
+                "repeatTime": 1,
+                "workoutInterval": 4.0,
+                "restTime": 10
+            },
+            {
+                "workoutType": 4,
+                "sets": 8,
+                "repeatTime": 6,
+                "workoutInterval": 3.0,
+                "restTime": 20
+            }
+        ]
+    },
+    {
+        "planName": "Calderon",
+        "uid": "5ce4d8d2304bf32c8448d53b",
+        "workouts": [
+            {
+                "workoutType": 4,
+                "sets": 8,
+                "repeatTime": 5,
+                "workoutInterval": 2.0,
+                "restTime": 10
+            },
+            {
+                "workoutType": 1,
+                "sets": 8,
+                "repeatTime": 6,
+                "workoutInterval": 4.0,
+                "restTime": 20
+            },
+            {
+                "workoutType": 4,
+                "sets": 8,
+                "repeatTime": 2,
+                "workoutInterval": 1.0,
+                "restTime": 30
+            },
+            {
+                "workoutType": 2,
+                "sets": 8,
+                "repeatTime": 1,
+                "workoutInterval": 1.0,
+                "restTime": 40
+            },
+            {
+                "workoutType": 4,
+                "sets": 8,
+                "repeatTime": 2,
+                "workoutInterval": 1.0,
+                "restTime": 20
+            },
+            {
+                "workoutType": 4,
+                "sets": 12,
+                "repeatTime": 2,
+                "workoutInterval": 4.0,
+                "restTime": 20
+            },
+            {
+                "workoutType": 2,
+                "sets": 10,
+                "repeatTime": 2,
+                "workoutInterval": 6.0,
+                "restTime": 10
+            }
+        ]
+    },
+    {
+        "planName": "Buck",
+        "uid": "5ce4d8d27ed6e6a1804fdc4f",
+        "workouts": [
+            {
+                "workoutType": 2,
+                "sets": 10,
+                "repeatTime": 6,
+                "workoutInterval": 6.0,
+                "restTime": 40
+            },
+            {
+                "workoutType": 3,
+                "sets": 10,
+                "repeatTime": 2,
+                "workoutInterval": 1.0,
+                "restTime": 20
+            },
+            {
+                "workoutType": 2,
+                "sets": 8,
+                "repeatTime": 2,
+                "workoutInterval": 2.0,
+                "restTime": 40
+            },
+            {
+                "workoutType": 2,
+                "sets": 10,
+                "repeatTime": 2,
+                "workoutInterval": 3.0,
+                "restTime": 10
+            },
+            {
+                "workoutType": 1,
+                "sets": 10,
+                "repeatTime": 6,
+                "workoutInterval": 3.0,
+                "restTime": 10
+            },
+            {
+                "workoutType": 3,
+                "sets": 12,
+                "repeatTime": 5,
+                "workoutInterval": 4.0,
+                "restTime": 40
+            },
+            {
+                "workoutType": 3,
+                "sets": 8,
+                "repeatTime": 1,
+                "workoutInterval": 3.0,
+                "restTime": 40
+            }
+        ]
+    }
+]
