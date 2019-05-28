@@ -69,8 +69,9 @@ class WorkoutDetailPage extends StatelessWidget {
             padding: EdgeInsets.only(left: 10.0),
             height: MediaQuery.of(context).size.height * 0.5,
             decoration: new BoxDecoration(
+              color: const Color(0xff7c94b6),
               image: new DecorationImage(
-                image: new AssetImage("drive-steering-wheel.jpg"),
+                image: new AssetImage("images/drive-steering-wheel.jpg"),
                 fit: BoxFit.cover,
               ),
             )),
@@ -104,12 +105,9 @@ class WorkoutDetailPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 16.0),
         width: MediaQuery.of(context).size.width,
         child: RaisedButton(
-          onPressed: () => {
-            Navigator.pop(context) 
-          },
+          onPressed: () => {Navigator.pop(context)},
           color: Color.fromRGBO(58, 66, 86, 1.0),
-          child:
-              Text("I will try", style: TextStyle(color: Colors.white)),
+          child: Text("I will try", style: TextStyle(color: Colors.white)),
         ));
     final bottomContent = Container(
       width: MediaQuery.of(context).size.width,
